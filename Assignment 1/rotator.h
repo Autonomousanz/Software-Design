@@ -3,50 +3,40 @@ Authors : Sanskruti Jadhav, Dnyanesh Marne
 */
 #ifndef ROTATOR_H
 #define ROTATOR_H
-
+#include "ppm.h"
 #include <iostream>
 #include <string>
+#include "pgm.h"
+#include "colorPixel.h"
+#include "grayPixel.h"
+
 
 using namespace std;
 
 class Rotator {
 
    private:
-      static Rotator* instance; 
+      static Rotator* instance; // can be named other than instance
       string inputFileName;
       string outputFileName;
       string direction;
       int degree;
       string extension;
       string MagicNo;
-      
+     
 
       // Private constructor so that no objects can be created.
       Rotator() {}
       Rotator(string inFile, string outFile, string direction, int degree){
          this->inputFileName = inFile;
          this->outputFileName = outFile;
-         if(direction == "-r"){
+         if(direction == "-r" ){
             this->direction = "Right";
          }else{
             this->direction = "Left";
          }
          this->degree = degree;
       }
-
-      void rightNinety(){
-         cout << "Right 90 Left 270" << endl;
-      }
-
-      void leftNinety(){
-         cout << "Right 270 Left 90" << endl;
-      }
-
-      void upsideDown(){
-         cout << "Right 180 Left 180" << endl;
-      }
-
-      ~Rotator() {}
 
    public:
       string fileLine;
@@ -56,18 +46,6 @@ class Rotator {
          return instance;
       }
 
-      void rotate(){
-         if((this->direction == "Right" and this->degree == 90) or (this->direction == "Left" and this->degree == 270)){
-               rightNinety();
-         }else if((this->direction == "Right" and this->degree == 270) or (this->direction == "Left" and this->degree == 90)){
-               leftNinety();
-         }else if(this->degree == 180){
-               upsideDown();
-         }else{
-            cout << "Rotation is either 360 or 0." << endl;
-         }
-      }
-
       string getInputFileName(){ return this->inputFileName; }
       string getOutputFileName(){ return this->outputFileName; }
       string getDirection(){ return this->direction; }
@@ -75,15 +53,49 @@ class Rotator {
       string getExtension(){ return this->extension; }
       string getMagicNo(){ return this->MagicNo; }
 
-     
-      void setExtension(string exten) { 
-         this->MagicNo = exten;
-         if(exten == "P2" or exten == "P5"){
+      void setMagicNo(string magic) { this->MagicNo = magic; }
+      void setExtension(string magic){
+          if(magic == "P2" or magic == "P5"){
             this->extension = "PGM";
          }else{
             this->extension = "PPM";
          }
       }
+
+      void rotateImage(){
+         if ((getDirection() == "Right" and getDegree()== 90) or (getDirection() == "Left" and getDegree()== 270)){
+            //right 90 and left 270 math rotation
+            Ppm* ppmFile = new Ppm(getInputFileName());
+
+            cout << "vector rows" << ppmFile->colorImage.size() << endl;
+            cout << "vector cols" << ppmFile->colorImage[0].size() << endl;
+            ColorPixel* tempcolor = ppmFile->colorImage[0][1];
+            cout << "value " << tempcolor->getRed() << endl;
+            cout << "value " << tempcolor->getGreen() << endl;
+            cout << "value " << tempcolor->getBlue() << endl;
+
+
+
+         }else if ((getDirection() == "Right" and getDegree()== 270) or (getDirection() == "Left" and getDegree()== 90)){
+            //right 270 and left 90 math rotation
+
+            Pgm* pgmFile = new Pgm(getInputFileName());
+
+            cout << "vector rows" << pgmFile->grayImage.size() << endl;
+            cout << "vector cols" << pgmFile->grayImage[0].size() << endl;
+            GrayPixel* tempcolor = pgmFile->grayImage[0][1];
+            cout << "value " << tempcolor->getGray() << endl;
+  
+
+
+         }else if(getDegree()== 180){
+            // right left 180 math rotation
+         }else{
+            /// 0 or 360 nothing to do
+         }
+      }
+
+      
      
 };
 #endif

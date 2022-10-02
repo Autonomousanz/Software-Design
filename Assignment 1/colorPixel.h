@@ -1,32 +1,48 @@
-/*
-Authors : Sanskruti Jadhav, Dnyanesh Marne
-*/
 #ifndef COLORPIXEL_H
 #define COLORPIXEL_H
-
 #include <iostream>
 #include <string>
+
+
 
 using namespace std;
 
 class ColorPixel {
-    private:
-      int Red;
-      int Green;
-      int Blue;
+	
+	
+     private:
+   /* red = 255,0,0;
+    green = 0,255,0;
+    blue = 0,0,255; of each color pixel */
 
+    string Red;
+    string Green;
+    string Blue;
+
+    
+       
+   
     public:
-      ColorPixel(){}
+    
+    // Definitions of constructors / functions
+    
+    ColorPixel(){ } //explicit default constructor
+    
+    ColorPixel(string Red,string Green,string Blue){
+          this->Red = Red;
+          this->Green = Green;
+          this->Blue = Blue;
 
-      ~ColorPixel(){}
+     } // parameterized constructor
+    
+    ~ColorPixel(); // Destructor
+    
+     // getters or accessors 
+     string getRed() {return Red;} //inline short functions here 
+     string getGreen() {return Green;}
+     string getBlue() {return Blue;}
 
-      int getRed(){return this->Red;}
-      int getGreen(){return this->Green;}
-      int getBlue(){return this->Blue;}
 
-      void setRed(int rIntensity){this->Red = rIntensity;}
-      void setGreen(int gIntensity){this->Green = gIntensity;}
-      void setBlue(int bIntensity){this->Blue = bIntensity;}
+      
 };
-
 #endif
