@@ -24,6 +24,9 @@ int main(int argc, char** argv){
 
         cout << s->getInputFileName() << " " << s->getOutputFileName() << " " << s->getDegree() << " " << s->getDirection() << " " << s->getExtension() << endl;
         cout << s->getMagicNo() << endl;
+
+        s->rotate();
+
     }else{
         cout << "Please put all required inputs (Execution binary, Input file name, Output file name, Rotation direction, Rotation degree)." << endl;
     }

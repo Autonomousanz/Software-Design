@@ -34,12 +34,38 @@ class Rotator {
          this->degree = degree;
       }
 
+      void rightNinety(){
+         cout << "Right 90 Left 270" << endl;
+      }
+
+      void leftNinety(){
+         cout << "Right 270 Left 90" << endl;
+      }
+
+      void upsideDown(){
+         cout << "Right 180 Left 180" << endl;
+      }
+
+      ~Rotator() {}
+
    public:
       string fileLine;
       
       static Rotator* getInstance(string inFile, string outFile, string direction, int degree) {
          if (!instance) instance = new Rotator(inFile, outFile, direction, degree);
          return instance;
+      }
+
+      void rotate(){
+         if((this->direction == "Right" and this->degree == 90) or (this->direction == "Left" and this->degree == 270)){
+               rightNinety();
+         }else if((this->direction == "Right" and this->degree == 270) or (this->direction == "Left" and this->degree == 90)){
+               leftNinety();
+         }else if(this->degree == 180){
+               upsideDown();
+         }else{
+            cout << "Rotation is either 360 or 0." << endl;
+         }
       }
 
       string getInputFileName(){ return this->inputFileName; }
