@@ -12,14 +12,14 @@ using namespace std;
 class Rotator {
 
    private:
-      static Rotator* instance; // can be named other than instance
+      static Rotator* instance; 
       string inputFileName;
       string outputFileName;
       string direction;
       int degree;
       string extension;
       string MagicNo;
-      //string imageCharacteristics[4];
+      
 
       // Private constructor so that no objects can be created.
       Rotator() {}
@@ -36,7 +36,7 @@ class Rotator {
 
    public:
       string fileLine;
-      // can be named anything, but recommended to have word Instance in the name
+      
       static Rotator* getInstance(string inFile, string outFile, string direction, int degree) {
          if (!instance) instance = new Rotator(inFile, outFile, direction, degree);
          return instance;
@@ -49,16 +49,7 @@ class Rotator {
       string getExtension(){ return this->extension; }
       string getMagicNo(){ return this->MagicNo; }
 
-      /*void setInputFileName(string filename) { this->inputFileName = filename;}
-      void setOutputFileName(string oFilename) { this->outputFileName = oFilename;}
-      void setDirection(string direction) { 
-         if(direction == "-r"){
-            this->direction = "Right";
-         }else{
-            this->direction = "Left";
-         }
-          }
-      void setDegree(int degree) { this->degree = degree; }*/
+     
       void setExtension(string exten) { 
          this->MagicNo = exten;
          if(exten == "P2" or exten == "P5"){
@@ -67,6 +58,6 @@ class Rotator {
             this->extension = "PPM";
          }
       }
-      //void setImageCharacteristics(int index, string value) { this->imageCharacteristics[index] = value;}
+     
 };
 #endif
