@@ -18,6 +18,10 @@ int main(int argc, char** argv){
         // Read from the image file
 
         ifstream MyReadFile(s->getInputFileName());
+        if(!MyReadFile.is_open()){
+                cout<<"open file failed"<<endl;
+                exit(1);
+        }
         getline(MyReadFile, s->fileLine);
         s->setExtension(s->fileLine);
         MyReadFile.close();
