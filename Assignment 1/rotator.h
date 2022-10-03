@@ -70,9 +70,31 @@ class Rotator {
 
          if ((getDirection() == "Right" and getDegree()== 90) or (getDirection() == "Left" and getDegree()== 270)){
             //right 90 and left 270 math rotation
+               if(getMagicNo()=="P2"){
+               Pgm* Image = new Pgm(getInputFileName());
+               vector<vector<GrayPixel* >> rotatedMatrix(Image->getImgWidth(),vector<GrayPixel* > (Image->getImgHeight()));
+               for (int i=0; i< Image->getImgHeight(); i++){
+                  for (int j=0; j< Image->getImgWidth(); j++){
 
+                     GrayPixel* tempcolor = Image->grayImage[i][j];
+                     rotatedMatrix[j][Image->getImgWidth()-1-i] = tempcolor;
 
-            
+                  }
+               }
+               Image->storeFile(rotatedMatrix,getOutputFileName());
+
+            }else if(getMagicNo()=="P3"){
+               Ppm* Image = new Ppm(getInputFileName());
+               vector<vector<ColorPixel* >> rotatedMatrix(Image->getImgWidth(),vector<ColorPixel* > (Image->getImgHeight()));
+               for (int i=0; i< Image->getImgHeight(); i++){
+                  for (int j=0; j< Image->getImgWidth(); j++){
+                     ColorPixel* tempcolor = Image->colorImage[i][j];
+                     rotatedMatrix[j][Image->getImgWidth()-1-i] = tempcolor;
+                  }
+               }
+               Image->storeFile(rotatedMatrix,getOutputFileName());
+
+            }          
 
 
 
@@ -90,6 +112,7 @@ class Rotator {
                   }
                }
                Image->storeFile(rotatedMatrix,getOutputFileName());
+
             }else if(getMagicNo()=="P3"){
                Ppm* Image = new Ppm(getInputFileName());
                vector<vector<ColorPixel* >> rotatedMatrix(Image->getImgWidth(),vector<ColorPixel* > (Image->getImgHeight()));
@@ -105,16 +128,41 @@ class Rotator {
 
          }else if(getDegree()== 180){
             // right left 180 math rotation
+                           if(getMagicNo()=="P2"){
+               Pgm* Image = new Pgm(getInputFileName());
+
+               vector<vector<GrayPixel* >> rotatedMatrix(Image->getImgHeight(),vector<GrayPixel* > (Image->getImgWidth()));
+
+               for (int i=0; i< Image->getImgHeight(); i++){
+                  for (int j=0; j< Image->getImgWidth(); j++){
+
+                     GrayPixel* tempcolor = Image->grayImage[i][j];
+                     rotatedMatrix[Image->getImgHeight()-1-i][Image->getImgWidth()-1-j] = tempcolor;
+
+                  }
+               }
+               Image->storeFile(rotatedMatrix,getOutputFileName());
+
+            }else if(getMagicNo()=="P3"){
+               Ppm* Image = new Ppm(getInputFileName());
+               vector<vector<ColorPixel* >> rotatedMatrix(Image->getImgHeight(),vector<ColorPixel* > (Image->getImgWidth()));
+               for (int i=0; i< Image->getImgHeight(); i++){
+                  for (int j=0; j< Image->getImgWidth(); j++){
+                     ColorPixel* tempcolor = Image->colorImage[i][j];
+                     rotatedMatrix[Image->getImgHeight()-1-i][Image->getImgWidth()-1-j] = tempcolor;
+                  }
+               }
+               Image->storeFile(rotatedMatrix,getOutputFileName());
+
+            }   
          }else{
             /// 0 or 360 nothing to do
+            cout << " Degrees not 90 180 270 !  " << endl;
          }
+         cout << " Rotation Done ! " << endl;
       }
 
 
-      void rotateASCII() {
-
-         
-      }    
      
 };
 #endif
