@@ -15,9 +15,10 @@ int main(int argc, char** argv){
 
     Rotator *s = s->getInstance(argv[1],argv[2],argv[3],atoi(argv[4])); //getinstance(inFile, outFile, direction, degree)
     //PPM p3 p6
-    //PGM file ext p2 p5
-    // Read from the image file
-    //ifstream MyReadFile('myfile.pgm');  instantiate the file using filename/directory 
+    //PGM p2 p5
+
+
+
     ifstream MyReadFile(s->getInputFileName()); 
     if(!MyReadFile.is_open()){
         cout<<"open file failed"<<endl;
@@ -27,10 +28,12 @@ int main(int argc, char** argv){
     s->setMagicNo(s->fileLine);
     s->setExtension(s->fileLine);
     MyReadFile.close();
+    if(s->getMagicNo()=="P2" or s->getMagicNo()=="P3"){
+        
+    }
 
-    cout << s->getInputFileName() << " " << s->getOutputFileName() << " " << s->getDegree() << " " << s->getDirection() << " " << s->getExtension() << endl;
     s->rotateImage();
-    //Pgm* mini = new Pgm(s->getInputFileName());
+
 
    
    

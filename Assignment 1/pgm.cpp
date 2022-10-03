@@ -29,9 +29,9 @@ Pgm::Pgm(string filename){
    
     cout << Pgm::getImgHeight() <<" "<< Pgm::getImgWidth() <<" "<< Pgm::getMagicNo() <<" "<<Pgm::getMaxValue() << endl;
 
-    for(row; row < Pgm::getImgHeight(); row++){
+    for(row=0; row < Pgm::getImgHeight(); row++){
         vector<GrayPixel*> tempVec;
-        for(col; col < Pgm::getImgWidth(); col++){
+        for(col=0; col < Pgm::getImgWidth(); col++){
             ss >> Pgm::tempLine;
             GrayPixel* grayPix = new GrayPixel(Pgm::tempLine);
             tempVec.push_back(grayPix);
@@ -44,8 +44,27 @@ Pgm::Pgm(string filename){
     GrayPixel* tempGray = Pgm::grayImage[0][1];
     cout << "value " << tempGray->getGray() << endl;
 
-
     MyReadFile.close();
     
-
 }
+
+void Pgm::storeFile(vector<vector<GrayPixel*>> rotatedMatrix, string outputFileName){
+         ofstream MyReadFile;
+         MyReadFile.open(outputFileName);
+
+         MyReadFile << Pgm::getMagicNo() << "\n";
+         MyReadFile << "# this is rotated result" << "\n";
+         MyReadFile << Pgm::getImgWidth() << " " << Pgm::getImgHeight() << "\n";
+         MyReadFile << Pgm::getMaxValue() << "\n";
+
+         for (int i=0; i< (Pgm::getImgHeight()); i++){
+            for (int j=0; j< (Pgm::getImgWidth()); j++){
+                GrayPixel* tempcolor = rotatedMatrix[i][j];                    
+                MyReadFile << tempcolor->getGray() << "\n";
+            }
+         }
+         MyReadFile.close();
+}
+
+
+
