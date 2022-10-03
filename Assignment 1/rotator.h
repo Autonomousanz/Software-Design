@@ -96,28 +96,19 @@ class Rotator {
                Image->storeFile(rotatedMatrix,getOutputFileName());
             }else if(getMagicNo()=="P5") {
                Pgm* Image = new Pgm(getInputFileName(),getMagicNo());
+               vector<vector<BYTE>> rotatedMatrix;
 
-               vector<BYTE> defaultVec;
-               for (int i=0; i <Image->getImgHeight(); i++){
-                  defaultVec.push_back( Image->OriginalMatrix[0][0]);
-               }
-               
-               vector<vector<BYTE>> rotatedMatrix(Image->getImgWidth(),defaultVec);
-
-               for (int i=0; i< Image->getImgHeight(); i++){
-                  for (int j=0; j< Image->getImgWidth(); j++){
-
-                     //cout << sizeof(Image->OriginalMatrix[i][j])<< "line " <<endl;
-
-                     //BYTE* temp = Image->OriginalMatrix[i][j];
-                     //copy(temp, temp+strlen(temp), back_inserter(rotatedMatrix[j][Image->getImgWidth()-1-i]));
-                     //rotatedMatrix[j][Image->getImgWidth()-1-i] = Image->OriginalMatrix[i][j];
-                     
+               for (int j=0; j< Image->getImgWidth(); j++){
+                  vector<BYTE> tempVec;
+                  for (int i=(Image->getImgHeight())-1; i >=0 ; i--){
+                     tempVec.push_back(Image->OriginalMatrix[i][j]);    
                   }
+                  rotatedMatrix.push_back(tempVec);
+
                }
                cout << "Rotated Matrix rows " << rotatedMatrix.size() << endl;
                cout << "Rotated Matrix cols " << rotatedMatrix[0].size() << endl;
-               Image->storeFileBinary( Image->OriginalMatrix,getOutputFileName());
+               Image->storeFileBinary( rotatedMatrix,getOutputFileName());
             }        
 
 
@@ -148,6 +139,21 @@ class Rotator {
                }
                Image->storeFile(rotatedMatrix,getOutputFileName());
 
+            }else if(getMagicNo()=="P5") {
+               Pgm* Image = new Pgm(getInputFileName(),getMagicNo());
+               vector<vector<BYTE>> rotatedMatrix;
+
+               for (int j=Image->getImgWidth()-1; j>=0; j--){
+                  vector<BYTE> tempVec;
+                  for (int i=0; i <(Image->getImgHeight()) ; i++){
+                     tempVec.push_back(Image->OriginalMatrix[i][j]);    
+                  }
+                  rotatedMatrix.push_back(tempVec);
+
+               }
+               cout << "Rotated Matrix rows " << rotatedMatrix.size() << endl;
+               cout << "Rotated Matrix cols " << rotatedMatrix[0].size() << endl;
+               Image->storeFileBinary( rotatedMatrix,getOutputFileName());
             }
 
          }else if(getDegree()== 180){
@@ -178,7 +184,23 @@ class Rotator {
                }
                Image->storeFile(rotatedMatrix,getOutputFileName());
 
-            }   
+            }else if(getMagicNo()=="P5") {
+               Pgm* Image = new Pgm(getInputFileName(),getMagicNo());
+               vector<vector<BYTE>> rotatedMatrix;
+
+               for (int i=(Image->getImgHeight())-1; i >=0 ; i--){
+                  vector<BYTE> tempVec;
+                  for (int j=Image->getImgWidth()-1; j>=0; j--){
+                     tempVec.push_back(Image->OriginalMatrix[i][j]);    
+                  }
+                  rotatedMatrix.push_back(tempVec);
+
+               }
+               cout << "Rotated Matrix rows " << rotatedMatrix.size() << endl;
+               cout << "Rotated Matrix cols " << rotatedMatrix[0].size() << endl;
+               Image->storeFileBinary( rotatedMatrix,getOutputFileName());
+            }
+
          }else{
             /// 0 or 360 nothing to do
             cout << " Degrees not 90 180 270 !  " << endl;

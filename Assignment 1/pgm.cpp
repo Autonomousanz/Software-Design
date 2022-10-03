@@ -122,11 +122,11 @@ void Pgm::storeFileBinary(vector<vector<BYTE>> matrix, string outputFileName){
     }
     MyReadFile << Pgm::getMagicNo() << "\n";
     MyReadFile << "# this is rotated result" << "\n";
-    MyReadFile << Pgm::getImgWidth() << " " << Pgm::getImgHeight() << "\n";
+    MyReadFile << matrix[0].size() << " "<< matrix.size() <<"\n";
     MyReadFile << Pgm::getMaxValue() << "\n";
 
-    for (int i=0; i< (Pgm::getImgHeight()); i++){
-        for (int j=0; j< (Pgm::getImgWidth()); j++){
+    for (int i=0; i< matrix.size() ; i++){
+        for (int j=0; j< matrix[0].size(); j++){
             MyReadFile << matrix[i][j];
         }
     }
