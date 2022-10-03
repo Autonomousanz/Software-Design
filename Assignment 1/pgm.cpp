@@ -27,8 +27,7 @@ Pgm::Pgm(string filename){
     ss >> maxVal;
     Pgm::setMaxValue(maxVal);
    
-    cout << Pgm::getImgHeight() <<" "<< Pgm::getImgWidth() <<" "<< Pgm::getMagicNo() <<" "<<Pgm::getMaxValue() << endl;
-
+    
     for(row=0; row < Pgm::getImgHeight(); row++){
         vector<GrayPixel*> tempVec;
         for(col=0; col < Pgm::getImgWidth(); col++){
@@ -39,10 +38,7 @@ Pgm::Pgm(string filename){
         Pgm::grayImage.push_back(tempVec);
     }
 
-    cout << "vector rows" << Pgm::grayImage.size() << endl;
-    cout << "vector cols" << Pgm::grayImage[0].size() << endl;
-    GrayPixel* tempGray = Pgm::grayImage[0][1];
-    cout << "value " << tempGray->getGray() << endl;
+
 
     MyReadFile.close();
     
