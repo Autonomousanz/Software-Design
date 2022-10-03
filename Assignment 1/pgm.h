@@ -37,7 +37,7 @@ class Pgm {
 	vector GrayPixel objects in ASCII and binary
 	*/
 		Pgm(string filename);
-
+		void storeFile(vector<vector<GrayPixel*>> rotatedMatrix, string outputFileName);
 		//int vectorCreate(int arrayofValues);
 		
 		// getters or accessors 

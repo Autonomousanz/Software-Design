@@ -40,7 +40,8 @@ class Ppm {
 	vector colorPixel objects in ASCII and binary
 	*/
 	Ppm(string filename);
-
+	void storeFile(vector<vector<ColorPixel*>> rotatedMatrix, string outputFileName);
+		
 	
 	string getMagicNo() {return MagicNo;} //inline short functions here 
 	int getImgHeight() {return ImgHeight;}
