@@ -61,9 +61,9 @@ Pgm::Pgm(string filename, string EMagic){
         MyReadFile.close();
 
         vector<BYTE> ImgData = Pgm::readfile(filename);
-        
+        //cout << "ImgData" << ImgData.size() << endl;
         chardiff = ImgData.size() - (numcols*numrows);
-        cout << "chardiff" <<chardiff<< endl;
+        //cout << "chardiff" <<chardiff<< endl;
         for(int i=0 ; i < numrows; i++ ){ 
             vector<BYTE> tempVec;
             for(int j=0; j< numcols; j++){
