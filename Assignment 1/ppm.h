@@ -5,7 +5,9 @@
 #include "colorPixel.h"
 #include <sstream>
 #include <vector>
+#include <fstream>
 using namespace std;
+typedef unsigned char BYTE;
 
 class Ppm {
 
@@ -34,13 +36,17 @@ class Ppm {
 	int row = 0, col = 0, numrows = 0, numcols = 0, maxVal = 0;
 	stringstream ss;
 	vector<vector<ColorPixel*>> colorImage;
+	int chardiff =0;
+	vector<vector<BYTE>> OriginalMatrix;
 	
 	
 	/* Methods 
 	vector colorPixel objects in ASCII and binary
 	*/
-	Ppm(string filename);
+	Ppm(string filename,string EMagic);
+	vector<BYTE> readfile(string name);
 	void storeFile(vector<vector<ColorPixel*>> rotatedMatrix, string outputFileName);
+	void storeFileBinary(vector<vector<BYTE>> rotatedMatrix, string outputFileName , int width, int height); //Binary
 		
 	
 	string getMagicNo() {return MagicNo;} //inline short functions here 

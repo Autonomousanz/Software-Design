@@ -8,6 +8,7 @@
 #include <sstream>
 #include "grayPixel.h"
 using namespace std;
+typedef unsigned char BYTE;
 
 class Pgm {
 
@@ -31,13 +32,17 @@ class Pgm {
 		int row = 0, col = 0, numrows = 0, numcols = 0, maxVal = 0;
 		stringstream ss;
 		vector<vector<GrayPixel*>> grayImage;
+		int chardiff =0;
+		vector<vector<BYTE>> OriginalMatrix;
 	
 	
 	/* Methods 
 	vector GrayPixel objects in ASCII and binary
 	*/
-		Pgm(string filename);
-		void storeFile(vector<vector<GrayPixel*>> rotatedMatrix, string outputFileName);
+		Pgm(string filename,string EMagic);
+		vector<BYTE> readfile(string name);
+		void storeFile(vector<vector<GrayPixel*>> rotatedMatrix, string outputFileName); //ASCII
+		void storeFileBinary(vector<vector<BYTE>> rotatedMatrix, string outputFileName); //Binary
 		//int vectorCreate(int arrayofValues);
 		
 		// getters or accessors 

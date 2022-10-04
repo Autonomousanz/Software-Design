@@ -28,9 +28,7 @@ int main(int argc, char** argv){
     s->setMagicNo(s->fileLine);
     s->setExtension(s->fileLine);
     MyReadFile.close();
-    if(s->getMagicNo()=="P2" or s->getMagicNo()=="P3"){
-        
-    }
+   
 
     s->rotateImage();
 

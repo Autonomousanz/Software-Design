@@ -18,8 +18,6 @@ class ColorPixel {
     string Red;
     string Green;
     string Blue;
-
-    
        
    
     public:
