@@ -95,7 +95,6 @@ class Rotator {
                      tempVec.push_back(tempcolor);    
                   }
                   rotatedMatrix.push_back(tempVec);
-
                }               
                Image->storeFile(rotatedMatrix,getOutputFileName(),Image->getImgHeight(),Image->getImgWidth());
 
