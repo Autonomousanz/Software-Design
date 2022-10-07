@@ -45,7 +45,7 @@ class Ppm {
 	*/
 	Ppm(string filename,string EMagic);
 	vector<BYTE> readfile(string name);
-	void storeFile(vector<vector<ColorPixel*>> rotatedMatrix, string outputFileName);
+	void storeFile(vector<vector<ColorPixel*>> rotatedMatrix, string outputFileName, int width, int height);
 	void storeFileBinary(vector<vector<BYTE>> rotatedMatrix, string outputFileName , int width, int height); //Binary
 		
 	

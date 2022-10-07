@@ -27,7 +27,7 @@ class GrayPixel {
           string getGray() {return Gray;} //inline short functions here 
 
           // setters or mutators to save pixel values >> when creating instance of the pixel
-          //void setGray(char Gray) {this->Gray = Gray;}
+          
 
 };
 #endif

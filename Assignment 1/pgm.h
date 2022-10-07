@@ -41,9 +41,9 @@ class Pgm {
 	*/
 		Pgm(string filename,string EMagic);
 		vector<BYTE> readfile(string name);
-		void storeFile(vector<vector<GrayPixel*>> rotatedMatrix, string outputFileName); //ASCII
+		void storeFile(vector<vector<GrayPixel*>> rotatedMatrix, string outputFileName,int width, int height); //ASCII
 		void storeFileBinary(vector<vector<BYTE>> rotatedMatrix, string outputFileName); //Binary
-		//int vectorCreate(int arrayofValues);
+		
 		
 		// getters or accessors 
 		string getMagicNo() {return MagicNo;} //inline short functions here 
