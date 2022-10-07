@@ -20,7 +20,6 @@ Ppm::Ppm(string filename,string EMagic){
         Ppm::setMagicNo(Ppm::tempLine1);
         getline(MyReadFile,Ppm::tempLine1);// ignore this comment
         ss << MyReadFile.rdbuf();
-
         ss >> numcols >> numrows;   // Third line : size
         Ppm::setImgHeight(numrows);
         Ppm::setImgWidth(numcols);
@@ -105,17 +104,17 @@ vector<BYTE> Ppm::readfile(string name){
     return ImgData;
 }
 
-void Ppm::storeFile(vector<vector<ColorPixel*>> rotatedMatrix, string outputFileName){
+void Ppm::storeFile(vector<vector<ColorPixel*>> rotatedMatrix, string outputFileName, int width, int height){
          ofstream MyReadFile;
          MyReadFile.open(outputFileName);
 
          MyReadFile << Ppm::getMagicNo() << "\n";
          MyReadFile << "# this is rotated result" << "\n";
-         MyReadFile << Ppm::getImgWidth() << " " << Ppm::getImgHeight() << "\n";
+         MyReadFile << width << " " << height << "\n";
          MyReadFile << Ppm::getMaxValue() << "\n";
 
-         for (int i=0; i< (Ppm::getImgHeight()); i++){
-            for (int j=0; j< (Ppm::getImgWidth()); j++){
+         for (int i=0; i< rotatedMatrix.size(); i++){
+            for (int j=0; j< rotatedMatrix[0].size(); j++){
                 ColorPixel* tempcolor = rotatedMatrix[i][j];                    
                 MyReadFile << tempcolor->getRed() << "\n";
                 MyReadFile << tempcolor->getGreen() << "\n";

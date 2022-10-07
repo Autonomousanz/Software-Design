@@ -97,17 +97,17 @@ vector<BYTE> Pgm::readfile(string name){
     return ImgData;
 }
 
-void Pgm::storeFile(vector<vector<GrayPixel*>> rotatedMatrix, string outputFileName){
+void Pgm::storeFile(vector<vector<GrayPixel*>> rotatedMatrix, string outputFileName, int width, int height){
          ofstream MyReadFile;
          MyReadFile.open(outputFileName);
 
          MyReadFile << Pgm::getMagicNo() << "\n";
          MyReadFile << "# this is rotated result" << "\n";
-         MyReadFile << Pgm::getImgWidth() << " " << Pgm::getImgHeight() << "\n";
+         MyReadFile << width << " " << height << "\n";
          MyReadFile << Pgm::getMaxValue() << "\n";
 
-         for (int i=0; i< (Pgm::getImgHeight()); i++){
-            for (int j=0; j< (Pgm::getImgWidth()); j++){
+         for (int i=0; i< rotatedMatrix.size(); i++){
+            for (int j=0; j< rotatedMatrix[0].size(); j++){
                 GrayPixel* tempcolor = rotatedMatrix[i][j];                    
                 MyReadFile << tempcolor->getGray() << "\n";
             }
@@ -132,5 +132,3 @@ void Pgm::storeFileBinary(vector<vector<BYTE>> matrix, string outputFileName){
     }
     MyReadFile.close();
 }
-
-

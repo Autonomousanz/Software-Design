@@ -73,27 +73,32 @@ class Rotator {
             //right 90 and left 270 math rotation
                if(getMagicNo()=="P2"){
                Pgm* Image = new Pgm(getInputFileName(),getMagicNo());
-               vector<vector<GrayPixel* >> rotatedMatrix(Image->getImgWidth(),vector<GrayPixel* > (Image->getImgHeight()));
-               for (int i=0; i< Image->getImgHeight(); i++){
-                  for (int j=0; j< Image->getImgWidth(); j++){
-
+               vector<vector<GrayPixel* >> rotatedMatrix;
+               for (int j=0; j< Image->getImgWidth(); j++){
+                  vector<GrayPixel*> tempVec;
+                  for (int i=(Image->getImgHeight())-1; i >=0 ; i--){
                      GrayPixel* tempcolor = Image->grayImage[i][j];
-                     rotatedMatrix[j][Image->getImgWidth()-1-i] = tempcolor;
-
+                     tempVec.push_back(tempcolor);    
                   }
+                  rotatedMatrix.push_back(tempVec);
+
                }
-               Image->storeFile(rotatedMatrix,getOutputFileName());
+               Image->storeFile(rotatedMatrix,getOutputFileName(),Image->getImgHeight(),Image->getImgWidth());
 
             }else if(getMagicNo()=="P3"){
                Ppm* Image = new Ppm(getInputFileName(),getMagicNo());
-               vector<vector<ColorPixel* >> rotatedMatrix(Image->getImgWidth(),vector<ColorPixel* > (Image->getImgHeight()));
-               for (int i=0; i< Image->getImgHeight(); i++){
-                  for (int j=0; j< Image->getImgWidth(); j++){
+               vector<vector<ColorPixel* >> rotatedMatrix;
+               for (int j=0; j< Image->getImgWidth(); j++){
+                  vector<ColorPixel*> tempVec;
+                  for (int i=(Image->getImgHeight())-1; i >=0 ; i--){
                      ColorPixel* tempcolor = Image->colorImage[i][j];
-                     rotatedMatrix[j][Image->getImgWidth()-1-i] = tempcolor;
+                     tempVec.push_back(tempcolor);    
                   }
-               }
-               Image->storeFile(rotatedMatrix,getOutputFileName());
+                  rotatedMatrix.push_back(tempVec);
+
+               }               
+               Image->storeFile(rotatedMatrix,getOutputFileName(),Image->getImgHeight(),Image->getImgWidth());
+
             }else if(getMagicNo()=="P5") {
                Pgm* Image = new Pgm(getInputFileName(),getMagicNo());
                vector<vector<BYTE>> rotatedMatrix;
@@ -106,8 +111,7 @@ class Rotator {
                   rotatedMatrix.push_back(tempVec);
 
                }
-               cout << "Rotated Matrix rows " << rotatedMatrix.size() << endl;
-               cout << "Rotated Matrix cols " << rotatedMatrix[0].size() << endl;
+
                Image->storeFileBinary( rotatedMatrix,getOutputFileName());
             }else  if(getMagicNo()=="P6") {
 
@@ -126,9 +130,6 @@ class Rotator {
 
                }
 
-
-               cout << "Rotated Matrix rows " << rotatedMatrix.size() << endl;
-               cout << "Rotated Matrix cols " << rotatedMatrix[0].size() << endl;
                Image->storeFileBinary(rotatedMatrix,getOutputFileName(),Image->getImgHeight(),Image->getImgWidth());
             }      
 
@@ -138,27 +139,45 @@ class Rotator {
             //right 270 and left 90 math rotation
             if(getMagicNo()=="P2"){
                Pgm* Image = new Pgm(getInputFileName(),getMagicNo());
-               vector<vector<GrayPixel* >> rotatedMatrix(Image->getImgWidth(),vector<GrayPixel* > (Image->getImgHeight()));
-               for (int i=0; i< Image->getImgWidth(); i++){
+               //vector<vector<GrayPixel* >> rotatedMatrix(Image->getImgWidth(),vector<GrayPixel* > (Image->getImgHeight()));
+               vector<vector<GrayPixel* >> rotatedMatrix;
+               /*for (int i=0; i< Image->getImgWidth(); i++){
                   for (int j=0; j< Image->getImgHeight(); j++){
 
                      GrayPixel* tempcolor = Image->grayImage[j][Image->getImgWidth()-1-i];
                      rotatedMatrix[i][j] = tempcolor;
 
                   }
+               }*/
+               for (int j=Image->getImgWidth()-1; j>=0; j--){
+                  vector<GrayPixel*> tempVec;
+                  for (int i=0; i <(Image->getImgHeight()) ; i++){
+                     GrayPixel* tempcolor = Image->grayImage[i][j];
+                     tempVec.push_back(tempcolor);    
+                  }
+                  rotatedMatrix.push_back(tempVec);
                }
-               Image->storeFile(rotatedMatrix,getOutputFileName());
+               Image->storeFile(rotatedMatrix,getOutputFileName(),Image->getImgHeight(),Image->getImgWidth());
 
             }else if(getMagicNo()=="P3"){
                Ppm* Image = new Ppm(getInputFileName(),getMagicNo());
-               vector<vector<ColorPixel* >> rotatedMatrix(Image->getImgWidth(),vector<ColorPixel* > (Image->getImgHeight()));
-               for (int i=0; i< Image->getImgWidth(); i++){
+               //vector<vector<ColorPixel* >> rotatedMatrix(Image->getImgWidth(),vector<ColorPixel* > (Image->getImgHeight()));
+               vector<vector<ColorPixel* >> rotatedMatrix;
+               /*for (int i=0; i< Image->getImgWidth(); i++){
                   for (int j=0; j< Image->getImgHeight(); j++){
                      ColorPixel* tempcolor = Image->colorImage[j][Image->getImgWidth()-1-i];
                      rotatedMatrix[i][j] = tempcolor;
                   }
+               }*/
+               for (int j=Image->getImgWidth()-1; j>=0; j--){
+                  vector<ColorPixel*> tempVec;
+                  for (int i=0; i <(Image->getImgHeight()) ; i++){
+                     ColorPixel* tempcolor = Image->colorImage[i][j];
+                     tempVec.push_back(tempcolor);    
+                  }
+                  rotatedMatrix.push_back(tempVec);
                }
-               Image->storeFile(rotatedMatrix,getOutputFileName());
+               Image->storeFile(rotatedMatrix,getOutputFileName(),Image->getImgHeight(),Image->getImgWidth());
 
             }else if(getMagicNo()=="P5") {
                Pgm* Image = new Pgm(getInputFileName(),getMagicNo());
@@ -172,38 +191,76 @@ class Rotator {
                   rotatedMatrix.push_back(tempVec);
 
                }
-               cout << "Rotated Matrix rows " << rotatedMatrix.size() << endl;
-               cout << "Rotated Matrix cols " << rotatedMatrix[0].size() << endl;
+     
                Image->storeFileBinary( rotatedMatrix,getOutputFileName());
-            }
+            }else  if(getMagicNo()=="P6") {
+
+               Ppm* Image = new Ppm(getInputFileName(),getMagicNo());
+               vector<vector<BYTE>> rotatedMatrix;
+
+               for (int j=Image->getImgWidth()-1; j>=0; j--){
+                  vector<BYTE> tempVec;
+                  for (int i=0; i <(Image->getImgHeight()) ; i++) {
+                     tempVec.push_back(Image->OriginalMatrix[i][3*j]); 
+                     tempVec.push_back(Image->OriginalMatrix[i][3*j+1]);
+                     tempVec.push_back(Image->OriginalMatrix[i][3*j+2]); 
+ 
+                  }
+                  rotatedMatrix.push_back(tempVec);
+
+               }
+               Image->storeFileBinary(rotatedMatrix,getOutputFileName(),Image->getImgHeight(),Image->getImgWidth());
+            }   
+
+          // 180 ROTATION LOGIC
+
 
          }else if(getDegree()== 180){
             // right left 180 math rotation
                            if(getMagicNo()=="P2"){
                Pgm* Image = new Pgm(getInputFileName(),getMagicNo());
 
-               vector<vector<GrayPixel* >> rotatedMatrix(Image->getImgHeight(),vector<GrayPixel* > (Image->getImgWidth()));
-
-               for (int i=0; i< Image->getImgHeight(); i++){
+               //vector<vector<GrayPixel* >> rotatedMatrix(Image->getImgHeight(),vector<GrayPixel* > (Image->getImgWidth()));
+               vector<vector<GrayPixel* >> rotatedMatrix;
+               /*for (int i=0; i< Image->getImgHeight(); i++){
                   for (int j=0; j< Image->getImgWidth(); j++){
 
                      GrayPixel* tempcolor = Image->grayImage[i][j];
                      rotatedMatrix[Image->getImgHeight()-1-i][Image->getImgWidth()-1-j] = tempcolor;
 
                   }
+               }*/
+               for (int i=(Image->getImgHeight())-1; i >=0 ; i--){
+                  vector<GrayPixel*> tempVec;
+                  for (int j=Image->getImgWidth()-1; j>=0; j--){
+                     GrayPixel* tempcolor = Image->grayImage[i][j];
+                     tempVec.push_back(tempcolor);    
+                  }
+                  rotatedMatrix.push_back(tempVec);
+
                }
-               Image->storeFile(rotatedMatrix,getOutputFileName());
+               Image->storeFile(rotatedMatrix,getOutputFileName(),Image->getImgWidth(),Image->getImgHeight());
 
             }else if(getMagicNo()=="P3"){
                Ppm* Image = new Ppm(getInputFileName(),getMagicNo());
-               vector<vector<ColorPixel* >> rotatedMatrix(Image->getImgHeight(),vector<ColorPixel* > (Image->getImgWidth()));
-               for (int i=0; i< Image->getImgHeight(); i++){
+               //vector<vector<ColorPixel* >> rotatedMatrix(Image->getImgHeight(),vector<ColorPixel* > (Image->getImgWidth()));
+               vector<vector<ColorPixel* >> rotatedMatrix;
+               /*for (int i=0; i< Image->getImgHeight(); i++){
                   for (int j=0; j< Image->getImgWidth(); j++){
                      ColorPixel* tempcolor = Image->colorImage[i][j];
                      rotatedMatrix[Image->getImgHeight()-1-i][Image->getImgWidth()-1-j] = tempcolor;
                   }
+               }*/
+               for (int i=(Image->getImgHeight())-1; i >=0 ; i--){
+                  vector<ColorPixel*> tempVec;
+                  for (int j=Image->getImgWidth()-1; j>=0; j--){
+                     ColorPixel* tempcolor = Image->colorImage[i][j];
+                     tempVec.push_back(tempcolor);    
+                  }
+                  rotatedMatrix.push_back(tempVec);
+
                }
-               Image->storeFile(rotatedMatrix,getOutputFileName());
+               Image->storeFile(rotatedMatrix,getOutputFileName(),Image->getImgWidth(),Image->getImgHeight());
 
             }else if(getMagicNo()=="P5") {
                Pgm* Image = new Pgm(getInputFileName(),getMagicNo());
@@ -217,10 +274,33 @@ class Rotator {
                   rotatedMatrix.push_back(tempVec);
 
                }
-               cout << "Rotated Matrix rows " << rotatedMatrix.size() << endl;
-               cout << "Rotated Matrix cols " << rotatedMatrix[0].size() << endl;
+               
                Image->storeFileBinary( rotatedMatrix,getOutputFileName());
-            }
+            }else  if(getMagicNo()=="P6") {
+
+               Ppm* Image = new Ppm(getInputFileName(),getMagicNo());
+               vector<vector<BYTE>> rotatedMatrix;
+
+               for (int i=(Image->getImgHeight())-1; i >=0 ; i--){
+                  vector<BYTE> tempVec;
+                  for (int j=Image->getImgWidth()-1; j>=0; j--) {
+                     tempVec.push_back(Image->OriginalMatrix[i][3*j]); 
+                     tempVec.push_back(Image->OriginalMatrix[i][3*j+1]);
+                     tempVec.push_back(Image->OriginalMatrix[i][3*j+2]); 
+ 
+                  }
+                  rotatedMatrix.push_back(tempVec);
+
+               }
+
+
+               
+               Image->storeFileBinary(rotatedMatrix,getOutputFileName(),Image->getImgWidth(),Image->getImgHeight());
+            }  
+
+
+
+         ///  THIS IS NOT GONNA ACCEPT   
 
          }else{
             /// 0 or 360 nothing to do
