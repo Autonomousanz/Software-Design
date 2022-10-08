@@ -8,6 +8,9 @@ Authors : Sanskruti Jadhav, Dnyanesh Marne
 
 using namespace std;
 
+
+
+
 Rotator *Rotator::instance = 0;
 
 int main(int argc, char** argv){
@@ -26,14 +29,8 @@ int main(int argc, char** argv){
     }
     getline(MyReadFile, s->fileLine);
     s->setMagicNo(s->fileLine);
-    s->setExtension(s->fileLine);
     MyReadFile.close();
-   
-
     s->rotateImage();
-
-
-   
    
    return 0;
 }
