@@ -1,0 +1,29 @@
+
+
+"version": "0.2.0",
+"configurations": [
+    {
+        "name": "g++.exe - Build and debug active file",
+        "type": "cppdbg",
+        "request": "launch",
+        "fileDirname": "Assignment2_Factory_Clone_Singleton",
+        "program": "${fileDirname} \\Animal.h",
+     
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "console": "internalConsole",        
+        "MIMode": "gdb",
+    
+        "setupCommands": [
+            {
+                "description": "Enable pretty-printing for gdb",
+                "text": "-enable-pretty-printing",
+                "ignoreFailures": true
+            }
+        ],
+        "preLaunchTask": "C/C++: g++.exe build active file"
+    }
+]
+}
