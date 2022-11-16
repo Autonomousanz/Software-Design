@@ -1,8 +1,8 @@
 // code source is refactoring.guru
-// modified by Lana Drachova
 
 #include <iostream>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -43,8 +43,8 @@ class Adapter : public Target {
   Adapter(Adaptee *tee) : adaptee(tee) {}
   string Request() const override {
     string to_reverse = (this->adaptee)->SpecificRequest();
-    string reverse(to_reverse.begin(), to_reverse.end());
-    return "Adapter: (TRANSLATED) " + to_reverse;
+    reverse(to_reverse.begin(), to_reverse.end());
+    return " Adapter translated result : " + to_reverse;
   }
 };
 
@@ -71,9 +71,9 @@ int main() {
   ClientCode(adapter);
   cout << "\n";
 
-  delete target;
-  delete adaptee;
-  delete adapter;
+   delete target;
+   delete adaptee;
+   delete adapter;
 
   return 0;
 }
